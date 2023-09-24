@@ -14,7 +14,6 @@
     "width": 800,
     "height": 400,
     "projection": {"type": "equalEarth"},
-    "background": "#CAE9F5",
     "layer": [
         {
     "data": {
@@ -49,6 +48,13 @@
 }
     
 },
+{
+    "data": {
+      "url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/ocean.json",
+      "format": {"type": "topojson", "feature": "oceans"}
+    },
+    "mark": {"type": "geoshape", "fill": "#CAE9F5"}
+  },
 {
     "data": {
         "url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/ne_110m_graticules_30.json",
