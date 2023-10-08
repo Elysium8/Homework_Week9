@@ -1,0 +1,145 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Global Broadband Speeds 2023",
+    
+    
+    "params": [
+      {
+        "name": "Continent_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "North America",
+            "South America",
+            "Europe",
+            "Africa",
+            "Asia",
+            "Oceania"
+            ],
+            "labels": [
+            "Show All",
+            "North America",
+            "South America",
+            "Europe",
+            "Africa",
+            "Asia",
+            "Oceania"
+            ],
+            "name": "Continent Selection: "
+            }
+            },
+      {
+        "name": "PopulationAbove",
+        "value": 0,
+        "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 300,
+        "step": 1,
+        "name": "Minimum Broadband Speed:"
+        }
+        }
+        
+    ],
+    
+    "data": {
+    "url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/countries.json",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+    },
+    
+    "transform": [
+      {"filter": "Continent_selection == null || datum.properties.CONTINENT == Continent_selection"},
+      
+    {
+        "lookup": "properties.NAME",
+        "from": {
+        "data": {
+        "url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/Speedinfo.csv"
+        },
+        "key": "Country",
+        "fields": ["Step"]
+        }
+  },
+  {"calculate": "parseFloat(datum.Step + 0)", "as": "Megabits per Second"},
+  {"filter": "datum.Step >= PopulationAbove"}
+  
+  ],
+  "vconcat": [
+    {
+        "projection": {"type": "equalEarth"},
+    "width": 800,
+    "height": 400,
+        "layer": [
+            {
+  "mark": {"type": "geoshape", "stroke": "grey"},
+  "encoding": {
+  "color": {
+  "field": "Megabits per Second",
+  "type": "quantitative",
+  "scale": {"type": "linear"}
+  },
+  "tooltip": [
+  {"field": "properties.NAME", "type": "nominal", "title":
+  "Country"},
+  {"field": "Megabits per Second", "type": "quantitative"}
+  ]
+  }
+    
+  },
+  
+
+
+  {
+    "data": {
+      "url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/ocean.json",
+      "format": {"type": "topojson", "feature": "oceans"}
+    },
+    "mark": {"type": "geoshape", "fill": "#CAE9F5"}
+  },
+  {
+    "data": {
+        "url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/ne_110m_graticules_30.json",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "gray", "strokeWidth": 0.3}
+  
+  
+  },
+  {
+    "mark": {"type": "text", "x": 680, "y": 275},
+    "encoding": {
+      "text": {"value": "Australia: 94 Mbps"}
+      
+    }
+  }
+
+    ]
+  },
+  {
+    "title": "Highest Broadband Speeds",
+    "description": "A bar chart that sorts the y-values by the x-values.",
+    "data": {"url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/Speedinfo.csv"},
+    "transform": [
+        {"filter": "datum.Step > 200"},
+
+      {"calculate": "parseFloat(datum.Step + 0)", "as": "Megabits per Second"}
+
+    ],
+    "height": {"step": 17},
+    "mark": "bar",
+    "encoding": {
+      "y": {
+        "field": "Country",
+        "type": "nominal",
+        "sort": "-x"
+      },
+      "x": {
+        "field": "Megabits per Second",
+        "type": "quantitative",
+        "title": "Speed"
+      }
+    }
+  }
+]
+}
