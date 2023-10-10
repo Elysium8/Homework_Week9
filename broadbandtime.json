@@ -1,0 +1,21 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Broadband Usage Across Time",
+    "description": "A bar chart that sorts the y-values by the x-values.",
+    "data": {"url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/broadband-penetration-by-country.csv"},
+    "mark": "line",
+    "encoding": {
+      "y": {
+        "field": "Sub",
+        "aggregate": "mean",
+        "title": "Percentage of population",
+        "type": "quantitative"
+      },
+      "x": {
+        "field": "Year",
+        "title": "Year",
+        "sort": "x"
+
+      }
+    }
+  }

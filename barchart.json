@@ -1,8 +1,9 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Fastest Broadband Speeds",
     "description": "A bar chart that sorts the y-values by the x-values.",
-    "data": {"url": "Speedinfo.csv"},
-    "transform": [{"filter": "datum.Step > 200"}],
+    "data": {"url": "https://raw.githubusercontent.com/Elysium8/A2/main/Speedinfo.csv"},
+    "transform": [{"filter": "datum.Step > 220"}],
     "height": {"step": 17},
     "mark": "bar",
     "encoding": {

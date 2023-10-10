@@ -5,9 +5,6 @@
   "height": 450,
   "projection": {"type": "equirectangular"},
   "params": [
-    
-    
-    
     {
       "name": "Continent_selection",
       "bind": {
@@ -51,7 +48,6 @@
   "data": {
   "url": "https://raw.githubusercontent.com/Elysium8/A2/main/countries.json",
   "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-  
   },
   
   "transform": [
@@ -64,15 +60,13 @@
       "url": "https://raw.githubusercontent.com/Elysium8/A2/main/Speedinfo.csv"
       },
       "key": "Country",
-      "fields": ["Step"]
+      "fields": ["mobile"]
       }
 },
-
-{"calculate": "parseFloat(datum.Step + 0)", "as": "Megabits per Second"},
-{"filter": "datum.Step >= PopulationAbove"}
+{"calculate": "parseFloat(datum.mobile + 0)", "as": "Megabits per Second"},
+{"filter": "datum.mobile >= PopulationAbove"}
 
 ],
-
 "mark": {"type": "geoshape", "stroke": "grey"},
 "encoding": {
 "color": {
@@ -80,7 +74,6 @@
 "type": "quantitative",
 "scale": {"type": "linear"}
 },
-
 "tooltip": [
 {"field": "properties.NAME", "type": "nominal", "title":
 "Country"},
@@ -106,5 +99,4 @@
 
 }
   ]
-  
 }

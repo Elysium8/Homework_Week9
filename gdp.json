@@ -1,0 +1,39 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "GDP vs Broadband",
+    "description": "Line Chart",
+    "width": 300,
+    "height": 300,
+    "data": {"url": "https://raw.githubusercontent.com/Elysium8/A2/main/Speedinfo.csv"},
+    "transform": [
+        
+      {
+          "lookup": "Country",
+          "from": {
+          "data": {
+          "url": "https://raw.githubusercontent.com/Elysium8/Homework_Week9/main/GDP.csv"
+          },
+          "key": "GCountry",
+          "fields": ["year"]
+          }
+    },
+    {"filter": "datum.year > 0"},
+    {"filter": "datum.year < 60000"}
+
+
+      ],
+    "mark": "point",
+    "encoding": {
+      "y": {
+        "field": "Step",
+        "type": "quantitative"
+      },
+      "x": {
+        "field": "year",
+        "type": "quantitative",
+        "title": "GDP",
+        "scale": {"domain": [0, 60000]}
+
+      }
+    }
+  }
